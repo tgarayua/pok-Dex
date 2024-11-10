@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct PokemonApp: App {
+    @State var isActive = false
+    
     var body: some Scene {
         WindowGroup {
-            SplashScreenView()
+            if isActive{
+                ContentView()
+            } else {
+                SplashScreenView()
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        withAnimation {
+                            self.isActive = true
+                        }
+                    }
+                }
+            }
         }
     }
 }
